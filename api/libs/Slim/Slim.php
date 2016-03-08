@@ -31,6 +31,10 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 namespace Slim;
+//Tina also participate in this project
+//I add comments here
+
+
 
 // Ensure mcrypt constants are defined even if mcrypt extension is not loaded
 if (!extension_loaded('mcrypt')) {
