@@ -93,3 +93,57 @@ app.controller('productEditCtrl', function ($scope, $modalInstance, item, Data) 
             }
         };
 });
+
+//worksCtrl
+app.controller('worksCtrl', function ($scope, $modal, $filter, Data) {
+    $scope.product = {};
+    Data.get('products').then(function(data){
+        $scope.products = data.data;
+    });
+    $scope.changeProductStatus = function(product){
+        product.status = (product.status=="Active" ? "Inactive" : "Active");
+        Data.put("products/"+product.id,{status:product.status});
+    };
+    $scope.deleteProduct = function(product){
+        if(confirm("Are you sure to remove the product")){
+            Data.delete("products/"+product.id).then(function(result){
+                $scope.products = _.without($scope.products, _.findWhere($scope.products, {id:product.id}));
+            });
+        }
+    };
+    $scope.open = function (p,size) {
+        var modalInstance = $modal.open({
+          templateUrl: 'partials/productEdit.html',
+          controller: 'productEditCtrl',
+          size: size,
+          resolve: {
+            item: function () {
+              return p;
+            }
+          }
+        });
+        modalInstance.result.then(function(selectedObject) {
+            if(selectedObject.save == "insert"){
+                $scope.products.push(selectedObject);
+                $scope.products = $filter('orderBy')($scope.products, 'id', 'reverse');
+            }else if(selectedObject.save == "update"){
+                p.description = selectedObject.description;
+                p.student = selectedObject.student;
+                p.faculty = selectedObject.faculty;
+                p.progress = selectedObject.progress;
+            }
+        });
+    };
+    
+ $scope.columns = [
+                    {text:"ID",predicate:"id",sortable:true,dataType:"number"},
+                    {text:"Title",predicate:"title",sortable:true},
+                    // {text:"Description",predicate:"description",sortable:true},
+                    {text:"Student",predicate:"student",sortable:true},
+                    {text:"Faculty",predicate:"faculty",sortable:true},
+                    {text:"Progress",predicate:"progress",reverse:true,sortable:true,dataType:"number"},
+                    {text:"Status",predicate:"status",sortable:true},
+                    {text:"Action",predicate:"",sortable:false}
+                ];
+
+});

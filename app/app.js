@@ -5,12 +5,22 @@ app.config(['$routeProvider',
     $routeProvider.
     when('/', {
       title: 'Products',
-      templateUrl: 'partials/products.html',
+      templateUrl: 'partials/login.html',
       controller: 'productsCtrl'
     })
     .when('/users', {
       title: 'Users',
       templateUrl: 'partials/users.html',
+      controller: 'productsCtrl'
+    })
+    .when('/project', {
+      title: 'Users',
+      templateUrl: 'partials/products.html',
+      controller: 'productsCtrl'
+    })
+    .when('/work', {
+      title: 'Users',
+      templateUrl: 'partials/works.html',
       controller: 'productsCtrl'
     })
     .otherwise({
