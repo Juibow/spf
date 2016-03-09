@@ -13,6 +13,7 @@ app.config(['$routeProvider',
       templateUrl: 'partials/users.html',
       controller: 'productsCtrl'
     })
+<<<<<<< HEAD
     .when('/project', {
       title: 'Users',
       templateUrl: 'partials/products.html',
@@ -21,6 +22,16 @@ app.config(['$routeProvider',
     .when('/work', {
       title: 'Users',
       templateUrl: 'partials/works.html',
+=======
+    .when('/work', {
+      title: 'Users',
+      templateUrl: 'partials/works.html',
+      controller: 'worksCtrl'
+    })
+    .when('/project', {
+      title: 'Project',
+      templateUrl: 'partials/products.html',
+>>>>>>> master
       controller: 'productsCtrl'
     })
     .otherwise({
