@@ -11,7 +11,7 @@ app.config(['$routeProvider',
     .when('/users', {
       title: 'Users',
       templateUrl: 'partials/users.html',
-      controller: 'productsCtrl'
+      controller: 'usersCtrl'
     })
     .when('/work', {
       title: 'Users',

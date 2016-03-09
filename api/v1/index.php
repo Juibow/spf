@@ -54,6 +54,42 @@ $app->delete('/products/:id', function($id) {
     echoResponse(200, $rows);
 });
 
+// Works
+$app->get('/works', function() { 
+    global $db;
+    $rows = $db->select("works","id,sku,title,description,student,mrp,faculty,image,progress,status",array());
+    echoResponse(200, $rows);
+});
+
+$app->post('/works', function() use ($app) { 
+    $data = json_decode($app->request->getBody());
+    $mandatory = array('title');
+    global $db;
+    $rows = $db->insert("works", $data, $mandatory);
+    if($rows["status"]=="success")
+        $rows["message"] = "Project added successfully.";
+    echoResponse(200, $rows);
+});
+
+$app->put('/works/:id', function($id) use ($app) { 
+    $data = json_decode($app->request->getBody());
+    $condition = array('id'=>$id);
+    $mandatory = array();
+    global $db;
+    $rows = $db->update("works", $data, $condition, $mandatory);
+    if($rows["status"]=="success")
+        $rows["message"] = "Project information updated successfully.";
+    echoResponse(200, $rows);
+});
+
+$app->delete('/works/:id', function($id) { 
+    global $db;
+    $rows = $db->delete("works", array('id'=>$id));
+    if($rows["status"]=="success")
+        $rows["message"] = "Project removed successfully.";
+    echoResponse(200, $rows);
+});
+
 function echoResponse($status_code, $response) {
     global $app;
     $app->status($status_code);
