@@ -94,16 +94,24 @@ app.controller('productEditCtrl', function ($scope, $modalInstance, item, Data) 
         };
 });
 
+<<<<<<< HEAD
+//worksCtrl
+=======
 
 
 ///
+>>>>>>> master
 app.controller('worksCtrl', function ($scope, $modal, $filter, Data) {
     $scope.product = {};
     Data.get('products').then(function(data){
         $scope.products = data.data;
     });
     $scope.changeProductStatus = function(product){
+<<<<<<< HEAD
+        product.status = (product.status=="Active" ? "Inactive" : "Active");
+=======
         product.status = (product.status=="Approve" ? "Unprove" : "Approve");
+>>>>>>> master
         Data.put("products/"+product.id,{status:product.status});
     };
     $scope.deleteProduct = function(product){
@@ -139,12 +147,21 @@ app.controller('worksCtrl', function ($scope, $modal, $filter, Data) {
     
  $scope.columns = [
                     {text:"ID",predicate:"id",sortable:true,dataType:"number"},
+<<<<<<< HEAD
+                    {text:"Title",predicate:"title",sortable:true},
+                    // {text:"Description",predicate:"description",sortable:true},
+                    {text:"Student",predicate:"student",sortable:true},
+                    {text:"Faculty",predicate:"faculty",sortable:true},
+                    {text:"Progress",predicate:"progress",reverse:true,sortable:true,dataType:"number"},
+                    {text:"Status",predicate:"status",sortable:true},
+=======
                     {text:"Project",predicate:"title",sortable:true},
                     {text:"Description",predicate:"description",sortable:true},
                     {text:"Student",predicate:"student",sortable:true},
                     {text:"Faculty",predicate:"faculty",sortable:true},
                     {text:"Progress",predicate:"progress",reverse:true,sortable:true,dataType:"number"},
                     {text:"Approve",predicate:"status",sortable:true},
+>>>>>>> master
                     {text:"Action",predicate:"",sortable:false}
                 ];
 
