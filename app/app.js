@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute', 'ui.bootstrap', 'ngAnimate']);
+var app = angular.module('myApp', ['ngRoute', 'ui.bootstrap', 'ngAnimate', 'toaster']);
 
 app.config(['$routeProvider',
   function($routeProvider) {
@@ -6,7 +6,7 @@ app.config(['$routeProvider',
     when('/', {
       title: 'Products',
       templateUrl: 'partials/login.html',
-      controller: 'productsCtrl'
+      controller: 'authCtrl'
     })
     .when('/users', {
       title: 'Users',
@@ -23,7 +23,33 @@ app.config(['$routeProvider',
       templateUrl: 'partials/products.html',
       controller: 'productsCtrl'
     })
+    .when('/settings', {
+      title: 'Setting',
+      templateUrl: 'partials/settings.html',
+      controller: 'productsCtrl'
+    })
     .otherwise({
       redirectTo: '/'
     });;
-}]);
+}])
+ .run(function ($rootScope, $location, Auth) {
+        $rootScope.$on("$routeChangeStart", function (event, next, current) {
+            $rootScope.authenticated = false;
+            Auth.get('session').then(function (results) {
+                if (results.uid) {
+                    $rootScope.authenticated = true;
+                    $rootScope.uid = results.uid;
+                    $rootScope.name = results.name;
+                    $rootScope.email = results.email;
+                } else {
+                    var nextUrl = next.$$route.originalPath;
+                    if (nextUrl == '/signup' || nextUrl == '/') {
+
+                    } else {
+                        $location.path("/");
+                    }
+                }
+            });
+        });
+    });
+    

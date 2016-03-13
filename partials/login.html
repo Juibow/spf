@@ -1,62 +1,57 @@
-    <div class="blog-masthead">
-        <div class="container">
-            <nav class="blog-nav">
+<div class="blog-masthead ">
+    <nav class="blog-nav" style="width: 98%">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-8">
                 <a class="blog-nav-item active" href="#">Home</a>
                 <a class="blog-nav-item" href="#/project">Project</a>
                 <a class="blog-nav-item" href="#/work">Work</a>
-                <a class="blog-nav-item" href="#/users">User</a>
-            </nav>
+                <a class="blog-nav-item" href="#/users">User</a></div>
+            <div class="col-xs-12 col-sm-6 col-md-4" style="text-align: right">
+                <a class="blog-nav-item" href="#">Please login </a>
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="container-fluid">
+    <div class="table-responsive">
+        <!-- <h4 class="blog-post-title">Wenzhou-Kean Univsersity SpF Research Project </h4> -->
+        <div class="row" style="margin-top: 20px">
+            <div class="col-md-8">
+                <img src="img/spf_banner.jpg" width="100%" />
+                <hr/>
+            </div>
+            <div class="col-md-4">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-3 control-label">Email</label>
+                        <div class="col-sm-9">
+                            <input for="email" class="form-control" placeholder="Email" ng-model="login.email" required focus>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">Password</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control" id="inputPassword3" placeholder="Password" ng-model="login.password" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"> Remember me
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button type="submit" class="btn btn-default" ng-click="doLogin(login)" data-ng-disabled="loginForm.$invalid">Sign in</button>
+                        </div>
+                    </div>
+                </form>
+
+
+            </div>
         </div>
     </div>
-
-<div class="page-content">
-
-<div class="row">
-<div class="space-6"></div>
-                <!-- Stack the columns on mobile by making one full-width and the other half-width -->
-<div class="row">
-  <div class="col-xs-12 col-md-7">
-
-  <img width="80%" src="http://www2.wkuer.com/spf/img/spf.jpg" /><br />
-  </div>
-  <div class="col-xs-6 col-md-5">
-                <form name="loginForm" class="form-horizontal" role="form">
-                    <h1>Login to SpF Manager</h1><br />
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right" for="email"> Email</label>
-                        <div class="col-sm-7">
-                           <span class="block input-icon input-icon-right">
-                                <input type="text" class="form-control" placeholder="Email" name="email" ng-model="login.email" required focus/>
-                                <i class="ace-icon fa fa-user"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right" for="password"> Password </label>
-                        <div class="col-sm-7">
-                           <span class="block input-icon input-icon-right">
-                                <input type="password" class="form-control" placeholder="Password" ng-model="login.password" required/>
-                                <i class="ace-icon fa fa-lock"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="space"></div>
-                     <div class="clearfix">
-                        <div class="row">
-                        <label class="col-sm-3 control-label no-padding-right"> </label>
-                        <div class="col-sm-7">
-                            <button type="submit" class="width-35 pull-right btn btn-sm btn-primary" ng-click="doLogin(login)" data-ng-disabled="loginForm.$invalid">
-                                <i class="ace-icon fa fa-key"></i>
-                                Login
-                            </button>
-                        </div>
-                        </div>
-                    </div>
-                        <div class="space-4"></div>
-                <span class="lbl col-sm-3"> </span><div class="col-sm-7">Don't have an account? <a href="#/signup">Signup</a></div>
-                </form>
-  </div>
 </div>
-
-</div>
-</div><!-- /.page-content -->

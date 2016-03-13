@@ -19,74 +19,38 @@ delete(table name, where clause as array)
 
 
 // Products
-$app->get('/products', function() { 
+$app->get('/project', function() { 
     global $db;
-    $rows = $db->select("products","id,sku,title,description,student,mrp,faculty,image,progress,status",array());
+    $rows = $db->select("project","id,uid,title,student,description,progress,faculty,status",array());
     echoResponse(200, $rows);
 });
 
-$app->post('/products', function() use ($app) { 
+$app->post('/project', function() use ($app) { 
     $data = json_decode($app->request->getBody());
     $mandatory = array('title');
     global $db;
-    $rows = $db->insert("products", $data, $mandatory);
+    $rows = $db->insert("project", $data, $mandatory);
     if($rows["status"]=="success")
-        $rows["message"] = "Project added successfully.";
+        $rows["message"] = "Product added successfully.";
     echoResponse(200, $rows);
 });
 
-$app->put('/products/:id', function($id) use ($app) { 
+$app->put('/project/:id', function($id) use ($app) { 
     $data = json_decode($app->request->getBody());
     $condition = array('id'=>$id);
     $mandatory = array();
     global $db;
-    $rows = $db->update("products", $data, $condition, $mandatory);
+    $rows = $db->update("project", $data, $condition, $mandatory);
     if($rows["status"]=="success")
-        $rows["message"] = "Project information updated successfully.";
+        $rows["message"] = "Product information updated successfully.";
     echoResponse(200, $rows);
 });
 
-$app->delete('/products/:id', function($id) { 
+$app->delete('/project/:id', function($id) { 
     global $db;
-    $rows = $db->delete("products", array('id'=>$id));
+    $rows = $db->delete("project", array('id'=>$id));
     if($rows["status"]=="success")
-        $rows["message"] = "Project removed successfully.";
-    echoResponse(200, $rows);
-});
-
-// Works
-$app->get('/works', function() { 
-    global $db;
-    $rows = $db->select("works","id,sku,title,description,student,mrp,faculty,image,progress,status",array());
-    echoResponse(200, $rows);
-});
-
-$app->post('/works', function() use ($app) { 
-    $data = json_decode($app->request->getBody());
-    $mandatory = array('title');
-    global $db;
-    $rows = $db->insert("works", $data, $mandatory);
-    if($rows["status"]=="success")
-        $rows["message"] = "Project added successfully.";
-    echoResponse(200, $rows);
-});
-
-$app->put('/works/:id', function($id) use ($app) { 
-    $data = json_decode($app->request->getBody());
-    $condition = array('id'=>$id);
-    $mandatory = array();
-    global $db;
-    $rows = $db->update("works", $data, $condition, $mandatory);
-    if($rows["status"]=="success")
-        $rows["message"] = "Project information updated successfully.";
-    echoResponse(200, $rows);
-});
-
-$app->delete('/works/:id', function($id) { 
-    global $db;
-    $rows = $db->delete("works", array('id'=>$id));
-    if($rows["status"]=="success")
-        $rows["message"] = "Project removed successfully.";
+        $rows["message"] = "Product removed successfully.";
     echoResponse(200, $rows);
 });
 
