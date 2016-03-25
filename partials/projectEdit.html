@@ -1,0 +1,73 @@
+<button type="button" class="close" ng-click="cancel();">
+    <i class="fa fa-times-circle-o" style="margin:10px;color:blue;"></i>
+</button>
+<div class="modal-header">
+    <h3 class="modal-title">{{buttonText}}   {{project.project_ID}} </h3>
+</div>
+<div class="modal-body">
+    <form name="product_form" class="form-horizontal" role="form" novalidate>
+        <form-element label="TITLE" mod="project">
+            <input type="text" class="form-control" name="title" placeholder="TITLE" ng-model="project.project_title" focus/>
+        </form-element>
+        <form-element label="DESCRIPTION" mod="project">
+            <textarea class="form-control" name="description" placeholder="DESCRIPTION" ng-model="project.project_description">{{project.project_description}}</textarea>
+        </form-element>
+        <form-element label="FACULTY" name="selectionLimitTest" label="STUDENT" mod="project">
+            <multiselect ng-model="selection4" options="options2" selection-limit="5" show-search="true"></multiselect>
+            <pre>{{selection4}}</pre>
+        </form-element>
+        <form-element label="STUDENT" name="selectionLimitTest" label="STUDENT" mod="project">
+            <multiselect ng-model="selection4" options="options" selection-limit="5" show-search="true">{{selection4}}</multiselect>
+            <pre>{{selection4}}</pre>
+        </form-element>
+        <form-element label="MAX HOUR" mod="project">
+            <input type="text" name="progress" class="form-control" placeholder="MAX HOUR" ng-model="project.project_progress" />
+            <small class="errorMessage" ng-show="product_form.progress.$dirty && product_form.progress.$invalid"> Enter the max hour.</small>
+        </form-element>
+        <div class="space"></div>
+        <div class="space-4"></div>
+        <div class="modal-footer">
+            <form-element label="">
+                <div class="text-right">
+                    <a class="btn btn-sm" ng-click="cancel()"><i class="ace-icon fa fa-reply"></i>Cancel</a>
+                    <button ng-click="saveProduct(project);" ng-disabled="product_form.$invalid || enableUpdate" class="btn btn-sm btn-primary" type="submit">
+                        <i class="ace-icon fa fa-check"></i>{{buttonText}}
+                    </button>
+                </div>
+            </form-element>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+$('.form_datetime').datetimepicker({
+    //language:  'fr',
+    weekStart: 1,
+    todayBtn: 1,
+    autoclose: 1,
+    todayHighlight: 1,
+    startView: 2,
+    forceParse: 0,
+    showMeridian: 1
+});
+$('.form_date').datetimepicker({
+    language: 'fr',
+    weekStart: 1,
+    todayBtn: 1,
+    autoclose: 1,
+    todayHighlight: 1,
+    startView: 2,
+    minView: 2,
+    forceParse: 0
+});
+$('.form_time').datetimepicker({
+    language: 'fr',
+    weekStart: 1,
+    todayBtn: 1,
+    autoclose: 1,
+    todayHighlight: 1,
+    startView: 1,
+    minView: 0,
+    maxView: 1,
+    forceParse: 0
+});
+</script>

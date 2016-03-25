@@ -1,32 +1,48 @@
-var app = angular.module('myApp', ['ngRoute', 'ui.bootstrap', 'ngAnimate', 'toaster']);
-
+// 'datePicker', 'ui.bootstrap', 
+var app = angular.module('myApp', ['datePicker', 'ui.bootstrap', 'btorfs.multiselect', 'ngRoute', 'ui.bootstrap', 'ngAnimate', 'toaster']);
 app.config(['$routeProvider',
   function($routeProvider) {
+    'use strict';
     $routeProvider.
     when('/', {
-      title: 'Products',
+      title: 'Homepage',
       templateUrl: 'partials/login.html',
       controller: 'authCtrl'
+    })
+    .when('/dashboard', {
+      title: 'dashboard',
+      templateUrl: 'partials/dashboard.html',
+      controller: 'dashboardCtrl'
     })
     .when('/users', {
       title: 'Users',
       templateUrl: 'partials/users.html',
       controller: 'usersCtrl'
     })
-    .when('/work', {
+    .when('/tasks', {
       title: 'Users',
-      templateUrl: 'partials/works.html',
-      controller: 'worksCtrl'
+      templateUrl: 'partials/tasks.html',
+      controller: 'tasksCtrl'
     })
-    .when('/project', {
+    .when('/projects', {
       title: 'Project',
-      templateUrl: 'partials/products.html',
-      controller: 'productsCtrl'
+      templateUrl: 'partials/projects.html',
+      controller: 'projectsCtrl'
+    })
+    .when('/project_report', {
+      title: 'Project',
+      templateUrl: 'partials/project_report.html',
+      controller: 'project_reportCtrl'
     })
     .when('/settings', {
       title: 'Setting',
       templateUrl: 'partials/settings.html',
-      controller: 'productsCtrl'
+      controller: 'settingsCtrl'
+    })
+    .when('/signup', {
+      title: 'signup',
+      templateUrl: 'partials/signup.html',
+      controller: 'authCtrl'
     })
     .otherwise({
       redirectTo: '/'

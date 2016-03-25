@@ -10,6 +10,7 @@ app.factory("Data", ['$http', '$location',
                 return results.data;
             });
         };
+
         obj.post = function (q, object) {
             return $http.post(serviceBase + q, object).then(function (results) {
                 return results.data;
