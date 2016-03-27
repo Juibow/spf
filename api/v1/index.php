@@ -1,6 +1,8 @@
 <?php
 require '.././libs/Slim/Slim.php';
 require_once 'dbHelper.php';
+require_once 'passwordHash.php';
+
 
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();

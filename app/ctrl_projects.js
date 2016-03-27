@@ -5,6 +5,16 @@ app.controller('projectsCtrl', function($rootScope, $location, $scope, $modal, $
     //     $location.path("/");
 
     // }
+
+
+    Data.get('users/student').then(function(data) {
+        $rootScope.studentlist = data.data;
+    });
+
+    Data.get('users/faculty').then(function(data) {
+        $rootScope.facultylist = data.data;
+    });
+
     $scope.logout = function() {
         Auth.get('logout').then(function(results) {
             Auth.toast(results);
@@ -12,7 +22,7 @@ app.controller('projectsCtrl', function($rootScope, $location, $scope, $modal, $
         });
     }
 
-    $scope.project = { project_ID: '', project_author: '' };
+    $scope.project = { project_ID: '', project_author: '', project_faculty: '', project_student: '' };
     $scope.projects = {};
     // $scope.uid = $rootScope.uid;
 
@@ -51,15 +61,34 @@ app.controller('projectsCtrl', function($rootScope, $location, $scope, $modal, $
         });
         modalInstance.result.then(function(selectedObject) {
             if (selectedObject.save == "insert") {
-                $scope.projects.push(selectedObject);
+                Data.get('projects').then(function(data) {
+                    $scope.projects = data.data;
+                });
+                // $scope.projects.push(selectedObject);
                 $scope.projects = $filter('orderBy')($scope.projects, 'project_ID', 'reverse');
             } else if (selectedObject.save == "update") {
-                p.project_title = selectedObject.project_title;
-                p.project_description = selectedObject.project_description;
-                p.project_student = selectedObject.project_student;
-                p.project_faculty = selectedObject.project_faculty;
-                p.project_progress = selectedObject.project_progress;
-                p.project_status = selectedObject.project_status;
+                Data.get('projects').then(function(data) {
+                    $scope.projects = data.data;
+                });
+                // p.project_title = selectedObject.project_title;
+                // p.project_description = selectedObject.project_description;
+                // p.project_student = selectedObject.project_student;
+                // p.project_faculty = selectedObject.project_faculty;
+                // p.project_progress = selectedObject.project_progress;
+                // p.project_status = selectedObject.project_status;
+            }
+        });
+    };
+
+    $scope.openReport = function(p, size) {
+        var modalInstance = $modal.open({
+            templateUrl: 'partials/projectReport.html',
+            controller: 'projectReportCtrl',
+            windowClass: 'large-Modal',
+            resolve: {
+                item: function() {
+                    return p;
+                }
             }
         });
     };
@@ -77,17 +106,19 @@ app.controller('projectsCtrl', function($rootScope, $location, $scope, $modal, $
 });
 
 
-app.controller('projectEditCtrl', function($scope, $modalInstance, item, Data, Auth) {
+app.controller('projectEditCtrl', function($rootScope, $scope, $modalInstance, item, Data, Auth) {
     $scope.users = [];
-    Data.get('users').then(function(data) {
-        $scope.users = data.data;
-        alert(JSON.stringify($scope.users));
-    });
 
-    $scope.options = ['element3', 'element2', 'element1', 'element4'];
-    $scope.options2 = [];
-    for (var i = 0; i < 5; i++) {
-        $scope.options2.push('element' + i);
+    $scope.students = [];
+    $scope.faculties = [];
+    // $scope.getFinished = false;
+    // Data.get('users').then(function(data) {
+    //     // $scope.users = data.data;
+    for (var i = 0; i < $rootScope.studentlist.length; i++) {
+        $scope.students.push($rootScope.studentlist[i].name);
+    }
+    for (var i = 0; i < $rootScope.facultylist.length; i++) {
+        $scope.faculties.push($rootScope.facultylist[i].name);
     }
 
     $scope.checkboxModel = {
@@ -95,6 +126,10 @@ app.controller('projectEditCtrl', function($scope, $modalInstance, item, Data, A
         value2: 'YES'
     };
     $scope.project = angular.copy(item);
+    $scope.project.project_student = $scope.project.project_student.split(",");
+    $scope.project.project_faculty = $scope.project.project_faculty.split(",");
+
+
     // alert(JSON.stringify(item));
 
     $scope.cancel = function() {
@@ -108,6 +143,80 @@ app.controller('projectEditCtrl', function($scope, $modalInstance, item, Data, A
         return angular.equals(original, $scope.project);
     }
     $scope.saveProduct = function(project) {
+        project.project_student = project.project_student.toString();
+        project.project_faculty = project.project_faculty.toString();
+
+        if (project.project_ID > 0) {
+            Data.put('projects/' + project.id, project).then(function(result) {
+                if (result.status != 'error') {
+                    var x = angular.copy(project);
+                    x.save = 'update';
+                    $modalInstance.close(x);
+                } else {
+                    console.log(result);
+                }
+                Auth.toast(result);
+            });
+        } else {
+            project.project_status = 'Active';
+            Data.post('projects', project).then(function(result) {
+                if (result.status != 'error') {
+                    var x = angular.copy(project);
+                    x.save = 'insert';
+                    x.id = result.data;
+                    $modalInstance.close(x);
+                } else {
+                    console.log(result);
+                }
+                alert(JSON.stringify(result));
+                Auth.toast(result);
+            });
+
+        }
+    };
+});
+
+
+
+app.controller('projectReportCtrl', function($rootScope, $scope, $modalInstance, item, Data, Auth) {
+    $scope.users = [];
+
+    $scope.students = [];
+    $scope.faculties = [];
+    // $scope.getFinished = false;
+    // Data.get('users').then(function(data) {
+    //     // $scope.users = data.data;
+    for (var i = 0; i < $rootScope.studentlist.length; i++) {
+        $scope.students.push($rootScope.studentlist[i].name);
+    }
+    for (var i = 0; i < $rootScope.facultylist.length; i++) {
+        $scope.faculties.push($rootScope.facultylist[i].name);
+    }
+
+    $scope.checkboxModel = {
+        value1: true,
+        value2: 'YES'
+    };
+    $scope.project = angular.copy(item);
+    $scope.project.project_student = $scope.project.project_student.split(",");
+    $scope.project.project_faculty = $scope.project.project_faculty.split(",");
+
+
+    // alert(JSON.stringify(item));
+
+    $scope.cancel = function() {
+        $modalInstance.dismiss('Close');
+    };
+    $scope.title = (item.project_ID != null) ? 'Edit Project' : 'Add Project';
+    $scope.buttonText = (item.project_ID > 0) ? 'Update Project' : 'Add New Project';
+
+    var original = item;
+    $scope.isClean = function() {
+        return angular.equals(original, $scope.project);
+    }
+    $scope.saveProduct = function(project) {
+        project.project_student = project.project_student.toString();
+        project.project_faculty = project.project_faculty.toString();
 
         if (project.project_ID > 0) {
             Data.put('projects/' + project.id, project).then(function(result) {

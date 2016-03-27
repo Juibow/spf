@@ -13,12 +13,12 @@
             <textarea class="form-control" name="description" placeholder="DESCRIPTION" ng-model="project.project_description">{{project.project_description}}</textarea>
         </form-element>
         <form-element label="FACULTY" name="selectionLimitTest" label="STUDENT" mod="project">
-            <multiselect ng-model="selection4" options="options2" selection-limit="5" show-search="true"></multiselect>
-            <pre>{{selection4}}</pre>
+            <multiselect ng-model="project.project_faculty" options="faculties" selection-limit="5" show-search="true">{{project.project_faculty.toString()}}</multiselect>
+            <pre>{{project.project_faculty.toString()}}</pre>
         </form-element>
         <form-element label="STUDENT" name="selectionLimitTest" label="STUDENT" mod="project">
-            <multiselect ng-model="selection4" options="options" selection-limit="5" show-search="true">{{selection4}}</multiselect>
-            <pre>{{selection4}}</pre>
+            <multiselect ng-model="project.project_student" options="students" selection-limit="5" show-search="true">{{project.project_student.toString()}}</multiselect>
+            <pre>{{project.project_student.toString()}}</pre>
         </form-element>
         <form-element label="MAX HOUR" mod="project">
             <input type="text" name="progress" class="form-control" placeholder="MAX HOUR" ng-model="project.project_progress" />
@@ -38,36 +38,3 @@
         </div>
     </form>
 </div>
-<script type="text/javascript">
-$('.form_datetime').datetimepicker({
-    //language:  'fr',
-    weekStart: 1,
-    todayBtn: 1,
-    autoclose: 1,
-    todayHighlight: 1,
-    startView: 2,
-    forceParse: 0,
-    showMeridian: 1
-});
-$('.form_date').datetimepicker({
-    language: 'fr',
-    weekStart: 1,
-    todayBtn: 1,
-    autoclose: 1,
-    todayHighlight: 1,
-    startView: 2,
-    minView: 2,
-    forceParse: 0
-});
-$('.form_time').datetimepicker({
-    language: 'fr',
-    weekStart: 1,
-    todayBtn: 1,
-    autoclose: 1,
-    todayHighlight: 1,
-    startView: 1,
-    minView: 0,
-    maxView: 1,
-    forceParse: 0
-});
-</script>

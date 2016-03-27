@@ -2,7 +2,14 @@
 // Users
 $app->get('/users', function() { 
     global $db;
-    $rows = $db->select("spf_users","*",array());
+    $rows = $db->select("spf_users","uid, name, email, phone, role",array());
+    echoResponse(200, $rows);
+});
+
+$app->get('/users/:role', function($role) use($app) { 
+    global $db;
+    $condition = array('role'=>$role);
+    $rows = $db->select("spf_users","uid, name, email, phone, role", $condition);
     echoResponse(200, $rows);
 });
 
@@ -18,7 +25,9 @@ $app->post('/users', function() use ($app) {
 
 $app->put('/users/:id', function($id) use ($app) { 
     $data = json_decode($app->request->getBody());
-    $condition = array('id'=>$id);
+    $password = $data->password;
+    $data->password = passwordHash::hash($password);
+    $condition = array('uid'=>$id);
     $mandatory = array();
     global $db;
     $rows = $db->update("spf_users", $data, $condition, $mandatory);

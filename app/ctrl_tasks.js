@@ -1,4 +1,4 @@
-app.controller('tasksCtrl', function($scope, $modal, $filter, Data, Auth) {
+app.controller('tasksCtrl', function($rootScope, $location, $scope, $modal, $filter, Data, Auth) {
     $scope.logout = function() {
         Auth.get('logout').then(function(results) {
             Auth.toast(results);
@@ -6,11 +6,22 @@ app.controller('tasksCtrl', function($scope, $modal, $filter, Data, Auth) {
         });
     }
 
-    $scope.task = { task_ID: '', task_author: '' };
+    $scope.task = { task_ID: '', task_author: '', task_student: '', task_project: '' };
     $scope.tasks = {};
 
     Data.get('tasks').then(function(data) {
         $scope.tasks = data.data;
+    });
+
+    Data.get('users').then(function(data) {
+        $rootScope.userlist = data.data;
+    });
+
+    $scope.projects = {};
+    // + $rootScope.name.name
+    Data.get('/GET/spf_projects/project_faculty/' + $rootScope.name.name).then(function(data) {
+        $rootScope.projects = data.data;
+        alert(JSON.stringify($rootScope.projects));
     });
 
     $scope.changeProductStatus = function(task) {
@@ -30,7 +41,7 @@ app.controller('tasksCtrl', function($scope, $modal, $filter, Data, Auth) {
         var modalInstance = $modal.open({
             templateUrl: 'partials/taskEdit.html',
             controller: 'taskEditCtrl',
-            size: size,
+            windowClass: 'large-Modal',
             resolve: {
                 item: function() {
                     return p;
@@ -39,19 +50,25 @@ app.controller('tasksCtrl', function($scope, $modal, $filter, Data, Auth) {
         });
         modalInstance.result.then(function(selectedObject) {
             if (selectedObject.save == "insert") {
-                $scope.tasks.push(selectedObject);
+                Data.get('tasks').then(function(data) {
+                    $scope.tasks = data.data;
+                });
                 $scope.tasks = $filter('orderBy')($scope.tasks, 'task_ID', 'reverse');
             } else if (selectedObject.save == "update") {
-                p.task_title = selectedObject.task_title;
-                p.task_author = selectedObject.task_author;
-                p.task_description = selectedObject.task_description;
-                p.task_student = selectedObject.task_student;
-                p.task_progress = selectedObject.task_progress;
+                Data.get('tasks').then(function(data) {
+                    $scope.tasks = data.data;
+                });
+                // p.task_title = selectedObject.task_title;
+                // p.task_author = selectedObject.task_author;
+                // p.task_description = selectedObject.task_description;
+                // p.task_student = selectedObject.task_student.toString();
+                // p.task_progress = selectedObject.task_progress;
             }
         });
     };
 
     $scope.columns = [
+        { text: "Task project", predicate: "task_project", sortable: true },
         { text: "Task description", predicate: "task_description", sortable: true },
         { text: "Released by", predicate: "task_faculty", sortable: true },
         { text: "Student", predicate: "task_student", sortable: true },
@@ -64,12 +81,30 @@ app.controller('tasksCtrl', function($scope, $modal, $filter, Data, Auth) {
 });
 
 
-app.controller('taskEditCtrl', function($scope, $modalInstance, item, Data, Auth) {
-
-    $scope.example = {
-        value: new Date(2010, 11, 28, 14, 57)
+app.controller('taskEditCtrl', function($scope, $rootScope, $modalInstance, item, Data, Auth) {
+    $scope.users = [];
+    $scope.options = [];
+    $scope.projectOpetions = [];
+    // $scope.getFinished = false;
+    // Data.get('users').then(function(data) {
+    //     // $scope.users = data.data;
+    for (var i = 0; i < $rootScope.userlist.length; i++) {
+        $scope.options.push($rootScope.userlist[i].name);
     };
+    for (var i = 0; i < $rootScope.projects.length; i++) {
+        $scope.projectOpetions.push($rootScope.projects[i].project_title);
+    };
+    //     $scope.getFinished = true;
+    // });
+
+    // for (var i = 0; i < 2; i++) {
+    //     $scope.options.push(userlist[i].name);
+    // }
+
     $scope.task = angular.copy(item);
+    $scope.task.task_student = $scope.task.task_student.split(",");
+
+
     // alert(JSON.stringify(item));
 
     $scope.cancel = function() {
@@ -84,6 +119,11 @@ app.controller('taskEditCtrl', function($scope, $modalInstance, item, Data, Auth
     }
     $scope.saveProduct = function(task) {
 
+        task.task_author = 'Juibow';
+        task.task_student = task.task_student.toString();
+
+        // task.task_due = task.task_due + '2015-03-23 00:08:00';
+
         if (task.task_ID > 0) {
             Data.put('tasks/' + task.task_ID, task).then(function(result) {
                 if (result.status != 'error') {
@@ -97,7 +137,7 @@ app.controller('taskEditCtrl', function($scope, $modalInstance, item, Data, Auth
             });
         } else {
             // task.task_author = name;
-            alert(name);
+            alert(name.first_name);
             task.task_status = 'Upload work';
             Data.post('tasks', task).then(function(result) {
                 if (result.status != 'error') {
@@ -108,10 +148,13 @@ app.controller('taskEditCtrl', function($scope, $modalInstance, item, Data, Auth
                 } else {
                     console.log(result);
                 }
-                alert(JSON.stringify(result));
                 Auth.toast(result);
             });
 
         }
     };
+
+
+    ///Time
+
 });

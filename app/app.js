@@ -29,11 +29,6 @@ app.config(['$routeProvider',
       templateUrl: 'partials/projects.html',
       controller: 'projectsCtrl'
     })
-    .when('/project_report', {
-      title: 'Project',
-      templateUrl: 'partials/project_report.html',
-      controller: 'project_reportCtrl'
-    })
     .when('/settings', {
       title: 'Setting',
       templateUrl: 'partials/settings.html',

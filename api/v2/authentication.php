@@ -48,17 +48,16 @@ $app->post('/signUp', function() use ($app) {
     verifyRequiredParams(array('email',  'password'),$r->customer);
     require_once 'passwordHash.php';
     $db = new DbHandler();
-    $first_name = $r->customer->first_name;
-    $last_name = $r->customer->last_name;
+    $name = $r->customer->name;
     $email = $r->customer->email;
     $phone = $r->customer->phone;
     $password = $r->customer->password;
     $role = $r->customer->role;
-    $isUserExists = $db->getOneRecord("select 1 from spf_users where phone='$phone' or email='$email'");
+    $isUserExists = $db->getOneRecord("select 1 from spf_users where name='$name' or email='$email'");
     if(!$isUserExists){
         $r->customer->password = passwordHash::hash($password);
         $tabble_name = "spf_users";
-        $column_names = array('first_name','last_name', 'email', 'phone','password', 'role');
+        $column_names = array('name', 'email', 'phone','password', 'role');
         $result = $db->insertIntoTable($r->customer, $column_names, $tabble_name);
         if ($result != NULL) {
             $response["status"] = "success";
@@ -79,10 +78,12 @@ $app->post('/signUp', function() use ($app) {
         }            
     }else{
         $response["status"] = "error";
-        $response["message"] = "An user with the provided phone or email exists!";
+        $response["message"] = "An user with the provided name or email exists!";
         echoResponse(201, $response);
     }
 });
+
+
 $app->get('/logout', function() {
     $db = new DbHandler();
     $session = $db->destroySession();

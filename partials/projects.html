@@ -9,7 +9,7 @@
                 <a class="blog-nav-item" ng-show="name.role == 'Administrator'" href="#/settings">Setting</a>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-7" style="text-align: right">
-                <a class="blog-nav-item">Howdy, {{name.role}}, {{name.first_name}} </a>
+                <a class="blog-nav-item">Howdy, {{name.role}}, {{name.name}} </a>
                 <a class="button button-pill button-tiny " href="#" ng-click="logout();"><i class="glyphicon glyphicon-log-out"></i> Logout</a>
             </div>
         </div>
@@ -54,7 +54,7 @@
                         </div>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-default">Check the report
+                        <button type="button" class="btn btn-default" ng-click="openReport(c)">Check the report
                         </button>
                     </td>
                     <td>
@@ -65,7 +65,7 @@
                     </td>
                     <td style="width:100px">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-default glyphicon glyphicon-pencil" ng-show="name.role == 'Administrator' || name.role == 'Faculty'" ng-click="deleteProduct(c);" ng-click="open(c);"></button>
+                            <button type="button" class="btn btn-default glyphicon glyphicon-pencil" ng-show="name.role == 'Administrator' || name.role == 'Faculty'" ng-click="open(c);"></button>
                             <button type="button" class="btn btn-danger glyphicon glyphicon-trash" ng-show="name.role == 'Administrator' || name.role == 'Faculty'" ng-click="deleteProduct(c);"></button>
                         </div>
                     </td>

@@ -6,45 +6,23 @@
 </div>
 <div class="modal-body">
     <form name="product_form" class="form-horizontal" role="form" novalidate>
+        <form-element label="PROJECT" name="selectionLimitTest" label="PROJECT" mod="task">
+            <select ng-model="task.task_project" ng-options="x for x in projectOpetions">
+            </select>
+            <!-- <multiselect ng-model="task.task_project" options="projectOpetions" selection-limit="5" show-search="true">{{task.task_project}}</multiselect> -->
+        </form-element>
         <form-element label="DESCRIPTION" mod="task">
             <textarea class="form-control" name="description" placeholder="DESCRIPTION" ng-model="task.task_description">{{task.task_description}}</textarea>
         </form-element>
-        <form-element label="STUDENT" mod="task">
-            <div class="dropdown">
-                <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown trigger
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dLabel">
-                    Remove
-                </ul>
-            </div>
-            <small class="errorMessage" ng-show="product_form.student.$dirty && product_form.student.$invalid"> Enter the  student.</small>
-            <div class="row">
-                <!-- /.col-lg-6 -->
-                <div class="col-lg-6">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for...">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Add</button>
-                       </span>
-                    </div>
-                    <!-- /input-group -->
-                </div>
-                <!-- /.col-lg-6 -->
-            </div>
-            <!-- /.row -->
+        <form-element label="STUDENT" name="selectionLimitTest" label="STUDENT" mod="task">
+            <p>{{task.task_student.toString()}}</p>
+            <multiselect ng-model="task.task_student" options="options" selection-limit="5" show-search="true">{{task.task_student.toString()}}</multiselect>
         </form-element>
-        <h2>Callback</h2>
-        <div>
-            <h4>Select a date from either picker</h4>
-            <div ng-bind="callbackState"></div>
-            <button ng-click="callbackState = 'Callback: Not fired'">Reset state</button>
-        </div>
-        <input type="text" date-time ng-model="dates.today" view="hours" date-change="changeDate" />
-        <div date-picker="dates.today" view="date" date-change="changeDate" timezone="UTC" watch-direct-changes="true"></div>
-        <form action="" class="form-horizontal" role="form">
-        </form>
+        <form-element label="TIME DUE" mod="task">
+            <!-- <input type="text" date-time ng-model="dates.today" view="hours" date-change="changeDate"> -->
+            <div date-picker="dates.today" view="date" ng-model="task.task_due" date-change="changeDate" watch-direct-changes="true"></div>
+            <button class="btn btn-sm btn-primary" type="submit" view="date"> Ok </button>
+        </form-element>
         <div class="space"></div>
         <div class="space-4"></div>
         <div class="modal-footer">
@@ -57,5 +35,6 @@
                 </div>
             </form-element>
         </div>
+        </form-element>
     </form>
 </div>

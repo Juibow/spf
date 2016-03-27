@@ -4,6 +4,7 @@ app.controller('usersCtrl', function($scope, $modal, $filter, Data, Auth) {
     $scope.users = {};
     Data.get('users').then(function(data) {
         $scope.users = data.data;
+
     });
     $scope.changeProductStatus = function(product) {
         product.status = (product.status == "Approve" ? "Unprove" : "Approve");
@@ -18,7 +19,8 @@ app.controller('usersCtrl', function($scope, $modal, $filter, Data, Auth) {
         }
     };
 
-    $scope.edit = function(p, size) {
+
+    $scope.open = function(p, size) {
         var modalInstance = $modal.open({
             templateUrl: 'partials/userEdit.html',
             controller: 'userEditCtrl',
@@ -31,47 +33,23 @@ app.controller('usersCtrl', function($scope, $modal, $filter, Data, Auth) {
         });
         modalInstance.result.then(function(selectedObject) {
             if (selectedObject.save == "insert") {
-                $scope.users.push(selectedObject);
+                Data.get('users').then(function(data) {
+                    $scope.users = data.data;
+                });
                 $scope.users = $filter('orderBy')($scope.users, 'uid', 'reverse');
             } else if (selectedObject.save == "update") {
                 p.uid = selectedObject.uid;
                 p.name = selectedObject.name;
-                p.first_name = selectedObject.first_name;
-                p.last_name = selectedObject.last_name;
-            }
-        });
-    };
-
-    $scope.open = function(p, size) {
-        var modalInstance = $modal.open({
-            templateUrl: 'partials/userAdd.html',
-            controller: 'userEditCtrl',
-            size: size,
-            resolve: {
-                item: function() {
-                    return p;
-                }
-            }
-        });
-        modalInstance.result.then(function(selectedObject) {
-            if (selectedObject.save == "insert") {
-                $scope.users.push(selectedObject);
-                $scope.users = $filter('orderBy')($scope.users, 'uid', 'reverse');
-            } else if (selectedObject.save == "update") {
-                p.uid = selectedObject.uid;
                 p.name = selectedObject.name;
-                p.first_name = selectedObject.first_name;
-                p.last_name = selectedObject.last_name;
             }
         });
     };
 
     $scope.columns = [
-        { text: "ID", predicate: "id", sortable: true, dataType: "number" },
-        { text: "First Name", predicate: "student", sortable: true },
-        { text: "Last Name", predicate: "faculty", sortable: true },
-        { text: "Role", predicate: "progress", reverse: true, sortable: true, dataType: "number" },
-        { text: "Phone", predicate: "status", sortable: true },
+        { text: "ID", predicate: "uid", sortable: true, dataType: "number" },
+        { text: "Name", predicate: "name", sortable: true },
+        { text: "Role", predicate: "role", reverse: true, sortable: true, dataType: "number" },
+        { text: "Phone", predicate: "phone", sortable: true },
         { text: "email", predicate: "email", sortable: true },
         { text: "Action", predicate: "", sortable: false }
     ];
@@ -83,8 +61,8 @@ app.controller('usersCtrl', function($scope, $modal, $filter, Data, Auth) {
 app.controller('userEditCtrl', function($scope, $rootScope, $routeParams, $location, $modalInstance, $http, Auth, item, Data) {
 
     $scope.login = {};
-    $scope.signup = {};
-    $scope.signup = { email: '', password: '', name: '', phone: '' };
+    $scope.user = {};
+    $scope.user = { email: '', password: '', name: '', phone: '' };
     $scope.signUp = function(customer) {
         Auth.post('signUp', {
             customer: customer
@@ -117,25 +95,25 @@ app.controller('userEditCtrl', function($scope, $rootScope, $routeParams, $locat
 
     };
 
-    $scope.U = angular.copy(item);
+    $scope.user = angular.copy(item);
 
     $scope.cancel = function() {
         $modalInstance.dismiss('Close');
     };
 
-    $scope.title = (item.id > 0) ? 'Edit Product' : 'Add Product';
-    $scope.buttonText = (item.id > 0) ? 'Update Product' : 'Add New Product';
+    $scope.title = (item.uid > 0) ? 'Edit User' : 'Add User';
+    $scope.buttonText = (item.uid > 0) ? 'Update User' : 'Add New User';
 
     var original = item;
     $scope.isClean = function() {
-        return angular.equals(original, $scope.product);
+        return angular.equals(original, $scope.user);
     }
-    $scope.saveProduct = function(product) {
-        product.uid = $scope.uid;
-        if (product.id > 0) {
-            Data.put('users/' + product.id, product).then(function(result) {
+    $scope.saveUser = function(user) {
+        if (user.uid > 0) {
+            Data.put('users/' + user.uid, user).then(function(result) {
+                Auth.toast(result);
                 if (result.status != 'error') {
-                    var x = angular.copy(product);
+                    var x = angular.copy(user);
                     x.save = 'update';
                     $modalInstance.close(x);
                 } else {
@@ -143,12 +121,14 @@ app.controller('userEditCtrl', function($scope, $rootScope, $routeParams, $locat
                 }
             });
         } else {
-            product.status = 'Active';
-            Data.post('users', product).then(function(result) {
-                if (result.status != 'error') {
-                    var x = angular.copy(product);
+            Auth.post('signUp', {
+                customer: user
+            }).then(function(results) {
+                Auth.toast(results);
+                if (results.status == "success") {
+                    var x = angular.copy(user);
                     x.save = 'insert';
-                    x.id = result.data;
+                    x.id = results.data;
                     $modalInstance.close(x);
                 } else {
                     console.log(result);
