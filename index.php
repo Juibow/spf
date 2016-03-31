@@ -16,9 +16,16 @@
     a {
         color: orange;
     }
+            .my-drop-zone { border: dotted 3px lightgray; }
+            .nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
+            .another-file-over-class { border: dotted 3px green; }
+
+            html, body { height: 100%; }
     </style>
     <!-- Libraries -->
     <script src="js/angular.min.js"></script>
+    <script src="js/ng-upload.min.js"></script>
+    <script src="js/angular-cookies.js"></script>
     <script src="js/ui-bootstrap-tpls-0.11.2.min.js"></script>
     <script src="js/angular-route.min.js"></script>
     <script src="js/angular-animate.min.js"></script>
@@ -38,6 +45,8 @@
     <script src="js/jquery-2.2.2.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/underscore.min.js"></script>
+    <script src="js/angular-file-upload.min.js"></script>
+
     <!-- Select -->
     <script src="bower_components/angular-bootstrap-multiselect/dist/angular-bootstrap-multiselect.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->

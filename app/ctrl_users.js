@@ -49,7 +49,6 @@ app.controller('usersCtrl', function($scope, $modal, $filter, Data, Auth) {
         { text: "ID", predicate: "uid", sortable: true, dataType: "number" },
         { text: "Name", predicate: "name", sortable: true },
         { text: "Role", predicate: "role", reverse: true, sortable: true, dataType: "number" },
-        { text: "Phone", predicate: "phone", sortable: true },
         { text: "email", predicate: "email", sortable: true },
         { text: "Action", predicate: "", sortable: false }
     ];
@@ -62,7 +61,7 @@ app.controller('userEditCtrl', function($scope, $rootScope, $routeParams, $locat
 
     $scope.login = {};
     $scope.user = {};
-    $scope.user = { email: '', password: '', name: '', phone: '' };
+    $scope.user = { email: '', password: '', name: '' };
     $scope.signUp = function(customer) {
         Auth.post('signUp', {
             customer: customer

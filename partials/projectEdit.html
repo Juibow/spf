@@ -13,7 +13,7 @@
             <textarea class="form-control" name="description" placeholder="DESCRIPTION" ng-model="project.project_description">{{project.project_description}}</textarea>
         </form-element>
         <form-element label="FACULTY" name="selectionLimitTest" label="STUDENT" mod="project">
-            <multiselect ng-model="project.project_faculty" options="faculties" selection-limit="5" show-search="true">{{project.project_faculty.toString()}}</multiselect>
+            <multiselect ng-model="project.project_faculty" options="faculties" selection-limit="1" show-search="true">{{project.project_faculty.toString()}}</multiselect>
             <pre>{{project.project_faculty.toString()}}</pre>
         </form-element>
         <form-element label="STUDENT" name="selectionLimitTest" label="STUDENT" mod="project">
@@ -21,8 +21,8 @@
             <pre>{{project.project_student.toString()}}</pre>
         </form-element>
         <form-element label="MAX HOUR" mod="project">
-            <input type="text" name="progress" class="form-control" placeholder="MAX HOUR" ng-model="project.project_progress" />
-            <small class="errorMessage" ng-show="product_form.progress.$dirty && product_form.progress.$invalid"> Enter the max hour.</small>
+            <input type="text" name="maxhour" class="form-control" placeholder="MAX HOUR" ng-model="project.project_maxhour" />
+            <small class="errorMessage" ng-show="product_form.maxhour.$dirty && product_form.maxhour.$invalid"> Enter the max hour.</small>
         </form-element>
         <div class="space"></div>
         <div class="space-4"></div>

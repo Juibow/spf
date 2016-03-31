@@ -2,21 +2,16 @@
     <i class="fa fa-times-circle-o" style="margin:10px;color:blue;"></i>
 </button>
 <div class="modal-header">
-    <h3 class="modal-title">{{buttonText}}   {{task.task_ID}} </h3>
+    <h3 class="modal-title">{{title}} </h3>
 </div>
 <div class="modal-body">
     <form name="product_form" class="form-horizontal" role="form" novalidate>
-        <form-element label="PROJECT" name="selectionLimitTest" label="PROJECT" mod="task">
-            <select ng-model="task.task_project" ng-options="x for x in projectOpetions">
-            </select>
-            <!-- <multiselect ng-model="task.task_project" options="projectOpetions" selection-limit="5" show-search="true">{{task.task_project}}</multiselect> -->
-        </form-element>
         <form-element label="DESCRIPTION" mod="task">
             <textarea class="form-control" name="description" placeholder="DESCRIPTION" ng-model="task.task_description">{{task.task_description}}</textarea>
         </form-element>
         <form-element label="STUDENT" name="selectionLimitTest" label="STUDENT" mod="task">
             <p>{{task.task_student.toString()}}</p>
-            <multiselect ng-model="task.task_student" options="options" selection-limit="5" show-search="true">{{task.task_student.toString()}}</multiselect>
+            <multiselect ng-model="task.task_student" options="project.project_student" selection-limit="1" show-search="true">{{task.task_student.toString()}}</multiselect>
         </form-element>
         <form-element label="TIME DUE" mod="task">
             <!-- <input type="text" date-time ng-model="dates.today" view="hours" date-change="changeDate"> -->

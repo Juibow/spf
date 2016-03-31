@@ -1,5 +1,5 @@
 <?php
-require_once 'config.php'; // Database setting constants [DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD]
+require_once '../config.php'; // Database setting constants [DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD]
 class dbHelper {
     private $db;
     private $err;

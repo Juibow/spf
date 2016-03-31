@@ -1,5 +1,5 @@
 // 'datePicker', 'ui.bootstrap', 
-var app = angular.module('myApp', ['datePicker', 'ui.bootstrap', 'btorfs.multiselect', 'ngRoute', 'ui.bootstrap', 'ngAnimate', 'toaster']);
+var app = angular.module('myApp', ['angularFileUpload','datePicker', 'ngUpload', 'ui.bootstrap', 'ngCookies', 'btorfs.multiselect', 'ngRoute', 'ui.bootstrap', 'ngAnimate', 'toaster']);
 app.config(['$routeProvider',
   function($routeProvider) {
     'use strict';

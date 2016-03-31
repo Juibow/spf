@@ -50,14 +50,13 @@ $app->post('/signUp', function() use ($app) {
     $db = new DbHandler();
     $name = $r->customer->name;
     $email = $r->customer->email;
-    $phone = $r->customer->phone;
     $password = $r->customer->password;
     $role = $r->customer->role;
     $isUserExists = $db->getOneRecord("select 1 from spf_users where name='$name' or email='$email'");
     if(!$isUserExists){
         $r->customer->password = passwordHash::hash($password);
         $tabble_name = "spf_users";
-        $column_names = array('name', 'email', 'phone','password', 'role');
+        $column_names = array('name', 'email', 'password', 'role');
         $result = $db->insertIntoTable($r->customer, $column_names, $tabble_name);
         if ($result != NULL) {
             $response["status"] = "success";
@@ -67,7 +66,6 @@ $app->post('/signUp', function() use ($app) {
                 session_start();
             }
             $_SESSION['uid'] = $response["uid"];
-            $_SESSION['phone'] = $phone;
             $_SESSION['role'] = $role;
             $_SESSION['email'] = $email;
             echoResponse(200, $response);

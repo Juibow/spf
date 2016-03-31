@@ -2,14 +2,14 @@
 // Users
 $app->get('/users', function() { 
     global $db;
-    $rows = $db->select("spf_users","uid, name, email, phone, role",array());
+    $rows = $db->select("spf_users","uid, name, email, role",array());
     echoResponse(200, $rows);
 });
 
 $app->get('/users/:role', function($role) use($app) { 
     global $db;
     $condition = array('role'=>$role);
-    $rows = $db->select("spf_users","uid, name, email, phone, role", $condition);
+    $rows = $db->select("spf_users","uid, name, email, role", $condition);
     echoResponse(200, $rows);
 });
 

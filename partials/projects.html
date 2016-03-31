@@ -20,7 +20,7 @@
 <div class="table-responsive">
     <div class="panel">
         <div class="panel-heading">
-            <button type="button" class="btn btn-primary fa fa-plus" ng-click="open(project);">&nbsp;Add New Project</button>
+            <button type="button" class="btn btn-primary fa fa-plus" ng-show="name.role == 'Administrator'" ng-click="open(project);">&nbsp;Add New Project</button>
             <div class="sw-search">
                 <div class="nav-search" id="nav-search">
                     Filter: <span class="input-icon">
@@ -32,15 +32,10 @@
         </div>
         <div class="panel-body">
             <table class="table table-striped">
-                <tr ng-show="projects.length==0">
-                    <td style="vertical-align:middle;"><i class="fa fa-ban fa-3x"></i>&nbsp;No data found</td>
-                </tr>
-                <tr ng-hide="projects.length>-1">
-                    <td style="vertical-align:middle;"><i class="fa fa-cog fa-3x fa-spin"></i>&nbsp;Loading</td>
-                </tr>
                 <tr>
                     <th ng-repeat="c in columns">{{c.text}}</th>
                 </tr>
+
                 <tr ng-repeat="c in projects | filter:filterProject | orderBy:'-project_ID'" id="{{c.project_ID}}" animate-on-change='c.project_title + c.project_student + c.project_faculty + c.project_description' ng-animate=" 'animate'">
                     <td>{{c.project_title}}</td>
                     <!-- <td>{{c.description}}</td> -->
@@ -48,7 +43,7 @@
                     <td>{{c.project_faculty}}</td>
                     <td width="150px">
                         <div class="progress">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: {{(c.project_progress / 40) * 100}}%;">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: {{(c.project_progress / c.project_maxhour) * 100}}%;">
                                 {{c.project_progress}} Hours
                             </div>
                         </div>
@@ -65,10 +60,17 @@
                     </td>
                     <td style="width:100px">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-default glyphicon glyphicon-pencil" ng-show="name.role == 'Administrator' || name.role == 'Faculty'" ng-click="open(c);"></button>
-                            <button type="button" class="btn btn-danger glyphicon glyphicon-trash" ng-show="name.role == 'Administrator' || name.role == 'Faculty'" ng-click="deleteProduct(c);"></button>
+                            <button type="button" class="btn btn-default glyphicon glyphicon-tasks" ng-show="name.role == 'Faculty'" ng-click="task(c);"></button>
+                            <button type="button" class="btn btn-default glyphicon glyphicon-pencil" ng-show="name.role == 'Administrator'" ng-click="open(c);"></button>
+                            <button type="button" class="btn btn-danger glyphicon glyphicon-trash" ng-show="name.role == 'Administrator'" ng-click="deleteProduct(c);"></button>
                         </div>
                     </td>
+                </tr>
+               <tr ng-show="projects.length==0">
+                    <td style="vertical-align:middle;"><i class="fa fa-ban fa-3x"></i>&nbsp;No data found</td>
+                </tr>
+                <tr ng-hide="projects.length>-1">
+                    <td style="vertical-align:middle;"><i class="fa fa-cog fa-3x fa-spin"></i>&nbsp;Loading</td>
                 </tr>
             </table>
         </div>

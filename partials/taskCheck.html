@@ -1,0 +1,38 @@
+<button type="button" class="close" ng-click="cancel();">
+    <i class="fa fa-times-circle-o" style="margin:10px;color:blue;"></i>
+</button>
+<div class="modal-header">
+    <h3 class="modal-title">{{title}} </h3>
+</div>
+<div class="modal-body">
+    <form name="product_form" class="form-horizontal" role="form" novalidate>
+        <form-element label="ATACHMENT" mod="task">
+            http://cs.wku.edu.cn/spf/uploads/{{task.work_file}}
+        </form-element>
+        <form-element label="STUDENT" mod="task">
+            <p>{{task.task_student.toString()}}</p>
+        </form-element>
+        <form-element label="DESCRIPTION" mod="task">
+            {{task.work_description}}
+        </form-element>
+        <form-element label="START FROM" mod="task">
+            {{task.work_start}}
+        </form-element>
+        <form-element label="END AT" mod="task">
+            {{task.work_end}}
+        </form-element>
+        <div class="space"></div>
+        <div class="space-4"></div>
+        <div class="modal-footer">
+            <form-element label="">
+                <div class="text-right">
+                    <a class="btn btn-sm" ng-click="cancel()"><i class="ace-icon fa fa-reply"></i>Cancel</a>
+                    <button ng-click="saveProduct(task);" ng-disabled="product_form.$invalid || enableUpdate" class="btn btn-sm btn-primary" type="submit">
+                        <i class="ace-icon fa fa-check"></i>{{buttonText}}
+                    </button>
+                </div>
+            </form-element>
+        </div>
+        </form-element>
+    </form>
+</div>
