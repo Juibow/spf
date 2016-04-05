@@ -7,6 +7,7 @@
                 <a class="blog-nav-item" href="#/tasks">Task</a>
                 <a class="blog-nav-item" href="#/users">User</a>
                 <a class="blog-nav-item active" href="#/settings">Setting</a>
+                <a class="blog-nav-item" href="#/notifications">Notification</a>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-7" style="text-align: right">
                 <a class="blog-nav-item">Howdy, {{name.role}}, {{name.name}} </a>
@@ -15,41 +16,43 @@
         </div>
     </nav>
 </div>
-<!-- <h4 class="blog-post-title">Settings</h4>
- --><hr/>
-<div class="table-responsive">
-    <div class="panel">
-        <div class="modal-body">
-            <h7 class="blog-post-title">GENERAL SETTINGS</h7>
-            <form name="product_form" class="form-horizontal" role="form" novalidate>
-                <form-element label="TITLE" mod="project">
-                    <input type="text" class="form-control" name="title" placeholder="TITLE" ng-model="project.project_title" focus/>
-                </form-element>
-                <form-element label="DEFAULT TIME" mod="project">
-                    <input type="text" name="faculty" class="form-control" placeholder="DEFAULT TIME FOR EACH PROJECT" ng-model="project.project_faculty" />
-                    <small class="errorMessage" ng-show="product_form.faculty.$dirty && product_form.faculty.$invalid"> Enter the faculty.</small>
-                </form-element>
-                <div class="space"></div>
-                <div class="space-4"></div>
-            </form>
-            <h7 class="blog-post-title">PERSONALL SETTINGS</h7>
-            <form name="product_form" class="form-horizontal" role="form" novalidate>
-                <form-element label="CHANGE PASSWORD" mod="project">
-                    <input type="text" class="form-control" name="title" placeholder="NEW PASSWORD" ng-model="project.project_title" focus/>
-                </form-element>
-                <div class="space"></div>
-                <div class="space-4"></div>
-                <div class="modal-footer">
-                    <form-element label="">
-                        <div class="text-right">
-                            <a class="btn btn-sm" ng-click="cancel()"><i class="ace-icon fa fa-reply"></i>Cancel</a>
-                            <button ng-click="saveProduct(project);" ng-disabled="product_form.$invalid || enableUpdate" class="btn btn-sm btn-primary" type="submit">
-                                <i class="ace-icon fa fa-check"></i>{{buttonText}}
-                            </button>
-                        </div>
+<div class="table-responsive container-fluid">
+    <h4 class="blog-post-title">Settings</h4>
+    <hr/>
+    <div class="table-responsive">
+        <div class="panel">
+            <div class="modal-body">
+                <h7 class="blog-post-title">GENERAL SETTINGS</h7>
+                <form name="product_form" class="form-horizontal" role="form" novalidate>
+                    <form-element label="TITLE" mod="project">
+                        <input type="text" class="form-control" name="title" placeholder="TITLE" ng-model="project.project_title" focus/>
                     </form-element>
-                </div>
-            </form>
+                    <form-element label="DEFAULT TIME" mod="project">
+                        <input type="text" name="faculty" class="form-control" placeholder="DEFAULT TIME FOR EACH PROJECT" ng-model="project.project_faculty" />
+                        <small class="errorMessage" ng-show="product_form.faculty.$dirty && product_form.faculty.$invalid"> Enter the faculty.</small>
+                    </form-element>
+                    <div class="space"></div>
+                    <div class="space-4"></div>
+                </form>
+                <h7 class="blog-post-title">PERSONALL SETTINGS</h7>
+                <form name="product_form" class="form-horizontal" role="form" novalidate>
+                    <form-element label="CHANGE PASSWORD" mod="project">
+                        <input type="text" class="form-control" name="title" placeholder="NEW PASSWORD" ng-model="project.project_title" focus/>
+                    </form-element>
+                    <div class="space"></div>
+                    <div class="space-4"></div>
+                    <div class="modal-footer">
+                        <form-element label="">
+                            <div class="text-right">
+                                <a class="btn btn-sm" ng-click="cancel()"><i class="ace-icon fa fa-reply"></i>Cancel</a>
+                                <button ng-click="saveProduct(project);" ng-disabled="product_form.$invalid || enableUpdate" class="btn btn-sm btn-primary" type="submit">
+                                    <i class="ace-icon fa fa-check"></i>{{buttonText}}
+                                </button>
+                            </div>
+                        </form-element>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

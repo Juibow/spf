@@ -7,6 +7,7 @@
                 <a class="blog-nav-item" href="#/tasks">Task</a>
                 <a class="blog-nav-item active" ng-show="name.role == 'Administrator'" href="#/users">User</a>
                 <a class="blog-nav-item" ng-show="name.role == 'Administrator'" href="#/settings">Setting</a>
+                <a class="blog-nav-item" href="#/notifications">Notification</a>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-7" style="text-align: right">
                 <a class="blog-nav-item">Howdy, {{name.role}}, {{name.name}} </a>
@@ -51,7 +52,8 @@
                     <td style="width:100px">
                         <div class="btn-group">
                             <button type="button" class="btn btn-default  glyphicon glyphicon-pencil" ng-click="open(c);"></button>
-                            <button type="button" class="btn btn-danger glyphicon glyphicon-trash" ng-click="deleteProduct(c);"></button>
+                            <button type="button" class="btn btn-danger glyphicon glyphicon-trash" ng-show="c.role == 'Administrator'" disabled></button>
+                            <button type="button" class="btn btn-danger glyphicon glyphicon-trash" ng-show="c.role != 'Administrator'" ng-click="deleteProduct(c);"></button>
                         </div>
                     </td>
                 </tr>

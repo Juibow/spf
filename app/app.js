@@ -39,6 +39,11 @@ app.config(['$routeProvider',
       templateUrl: 'partials/signup.html',
       controller: 'authCtrl'
     })
+    .when('/notifications', {
+      title: 'notification',
+      templateUrl: 'partials/notifications.html',
+      controller: 'authCtrl'
+    })
     .otherwise({
       redirectTo: '/'
     });;

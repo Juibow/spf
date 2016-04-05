@@ -2,12 +2,12 @@
     <nav class="blog-nav" style="width: 98%">
         <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-5">
-                <a class="blog-nav-item active" href="#/dashboard">Dashboard</a>
+                <a class="blog-nav-item" href="#/dashboard">Dashboard</a>
                 <a class="blog-nav-item" href="#/projects">Project</a>
                 <a class="blog-nav-item" href="#/tasks">Task</a>
                 <a class="blog-nav-item" ng-show="name.role == 'Administrator'" href="#/users">User</a>
                 <a class="blog-nav-item" ng-show="name.role == 'Administrator'" href="#/settings">Setting</a>
-                <a class="blog-nav-item" href="#/notifications">Notification</a>
+                <a class="blog-nav-item active" href="#/notifications">Notification</a>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-7" style="text-align: right">
                 <a class="blog-nav-item">Howdy, {{name.role}}, {{name.name}} </a>
@@ -17,7 +17,7 @@
     </nav>
 </div>
 <div class="table-responsive container-fluid">
-    <h4 class="blog-post-title">Dashboard</h4>
+    <h4 class="blog-post-title">Notifications</h4>
     <hr/>
+    <!-- 1. nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" -->
 </div>
-<!-- 1. nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" -->

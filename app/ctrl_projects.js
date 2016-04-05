@@ -222,7 +222,6 @@ app.controller('projectEditCtrl', function($rootScope, $scope, $modalInstance, i
                 } else {
                     console.log(result);
                 }
-                alert(JSON.stringify(result));
                 Auth.toast(result);
             });
 
