@@ -14,11 +14,11 @@
         </form-element>
         <form-element label="FACULTY" name="selectionLimitTest" label="STUDENT" mod="project">
             <multiselect ng-model="project.project_faculty" options="faculties" selection-limit="1" show-search="true">{{project.project_faculty.toString()}}</multiselect>
-            <pre>{{project.project_faculty.toString()}}</pre>
+            <!-- <pre>{{project.project_faculty.toString()}}</pre> -->
         </form-element>
         <form-element label="STUDENT" name="selectionLimitTest" label="STUDENT" mod="project">
             <multiselect ng-model="project.project_student" options="students" selection-limit="5" show-search="true">{{project.project_student.toString()}}</multiselect>
-            <pre>{{project.project_student.toString()}}</pre>
+            <!-- <pre>{{project.project_student.toString()}}</pre> -->
         </form-element>
         <form-element label="MAX HOUR" mod="project">
             <input type="text" name="maxhour" class="form-control" placeholder="MAX HOUR" ng-model="project.project_maxhour" />

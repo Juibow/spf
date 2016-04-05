@@ -10,7 +10,7 @@
             <textarea class="form-control" name="description" placeholder="DESCRIPTION" ng-model="task.task_description">{{task.task_description}}</textarea>
         </form-element>
         <form-element label="STUDENT" name="selectionLimitTest" label="STUDENT" mod="task">
-            <p>{{task.task_student.toString()}}</p>
+            <!-- <p>{{task.task_student.toString()}}</p> -->
             <multiselect ng-model="task.task_student" options="project.project_student" selection-limit="1" show-search="true">{{task.task_student.toString()}}</multiselect>
         </form-element>
         <form-element label="TIME DUE" mod="task">
